@@ -2,7 +2,6 @@
 
 from bottle import route, run, debug, template, request, static_file, error, redirect
 import pymysql
-import codecs
 
 conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='1809003730', passwd='mypassword',db='1809003730_veflokaverkefni')
 cur = conn.cursor()
@@ -34,7 +33,7 @@ def nytt_ToDo2():
     return redirect('/')
 
 
-@route('/breyta/<no:int>', method='POST')
+@route('/breyta/<no:int>')
 def edit_item(no):
     cur.execute("UPDATE todo SET task = ?, WHERE id LIKE ?", (edit, no))
     conn.commit()
@@ -43,17 +42,15 @@ def edit_item(no):
 
 @route('/buid/<no:int>')
 def buid(no):
-    cur.execute("UPDATE todo SET status = ? WHREE id LIKE ?", (0,no))
+    cur.execute("UPDATE todo SET status = %s WHREE id LIKE %s", (0,no))
+    conn.commit()
     return redirect('/')
 
-@route('/eyda/<no:int>')
+@route('/eyda/<no>')
 def eyda(no):
-    cur.execute("DELETE todo WHREE id LIKE ?", (no))
+    print(no)
+    cur.execute("DELETE FROM todo WHERE todo = %s", (no))
+    conn.commit()
     return redirect('/')
-
-@error(404)
-def mistake404(code):
-    return 'Sorry, this page does not exist!'
-
 
 run(debug=True)
