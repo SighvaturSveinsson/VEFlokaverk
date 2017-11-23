@@ -6,9 +6,9 @@ import pymysql
 conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='1809003730', passwd='mypassword',db='1809003730_veflokaverkefni')
 cur = conn.cursor()
 
-@route('/static/<skraarnafn>')
+@route('/<skraarnafn>')
 def static_skrar(skraarnafn):
-    return static_file(skraarnafn, root='./static')
+    return static_file(skraarnafn, root='./')
 
 @error(404)
 def villa(error):
@@ -25,30 +25,30 @@ def nytt_ToDo():
 @route('/new', method='POST')
 def nytt_ToDo2():
     todo = request.forms.get('todo')
-    cur.execute("SELECT count(*) FROM todo")
-    teljari2 = cur.fetchone()
-    teljari = teljari2[0]
-    teljari += 1
+    lysing = request.forms.get('lysing')
+    cur.execute("INSERT INTO todo (todo, status, lysing) VALUES(%s, 1, %s)", (todo,lysing))
     conn.commit()
     return redirect('/')
 
+@route('/breyt/<no>')
+def nytt_ToDo(no):
+    return template('breyta.tpl',no=no)
 
-@route('/breyta/<no:int>')
+@route('/breyta/<no>', method='POST')
 def edit_item(no):
-    cur.execute("UPDATE todo SET task = ?, WHERE id LIKE ?", (edit, no))
+    edit = request.forms.get('todo')
+    cur.execute("UPDATE todo SET todo = %s WHERE todo = %s", (edit, no))
     conn.commit()
+    return redirect('/')
 
-    return '<p>The item number %s was successfully updated</p>' % no
-
-@route('/buid/<no:int>')
+@route('/buid/<no>')
 def buid(no):
-    cur.execute("UPDATE todo SET status = %s WHREE id LIKE %s", (0,no))
+    cur.execute("UPDATE todo SET status = %s WHERE todo = %s", (0,no))
     conn.commit()
     return redirect('/')
 
 @route('/eyda/<no>')
 def eyda(no):
-    print(no)
     cur.execute("DELETE FROM todo WHERE todo = %s", (no))
     conn.commit()
     return redirect('/')
