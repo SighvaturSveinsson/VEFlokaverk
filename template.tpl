@@ -21,15 +21,18 @@
 % conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='1809003730', passwd='mypassword',db='1809003730_veflokaverkefni')
 % cur = conn.cursor()
 % cur.execute("SELECT * FROM todo")
+% stada = ""
 		% for i in cur:
 		%	id = i[0]
 		% 	todo  = i[1]
 		% 	status = i[2]
 		% 	lysing = i[3]
-		%	if status == "1":
+
+		%	if status == 1:
 		%		stada = "Opið"
-		%	elif status == "0":
+		%	else:
 		%		stada = "Lokað"
+		%	end
 	    	<td>{{todo}}</td>
 	    	<td>{{stada}}</td>
 	    	<td>{{lysing}}</td>
