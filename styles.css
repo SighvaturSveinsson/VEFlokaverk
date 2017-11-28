@@ -1,6 +1,35 @@
 div{
 	padding: 20px;
-	font-size: 20px;
-	margin: 50px;
-	color: red;
+	border: black 1px solid;
+}
+body{
+	max-width: 60em;
+	margin: 0 auto;
+	border: 10px gray solid;
+	background: #C3CEE8;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+th,
+td {
+  padding: 10px 15px;
+}
+thead{
+	background: #E85133;
+}
+
+tbody tr:nth-child(even) {
+  background: lightgray;
+}
+td {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+td:first-child {
+  border-left: 1px solid black;
+}
+h1{
+	text-align: center;
 }

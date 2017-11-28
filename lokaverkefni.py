@@ -25,31 +25,31 @@ def nytt_ToDo():
 @route('/new', method='POST')
 def nytt_ToDo2():
     todo = request.forms.get('todo')
-    lysing = request.forms.get('lysing')
+    lysing = request.forms.get('texti')
     cur.execute("INSERT INTO todo (todo, status, lysing) VALUES(%s, 1, %s)", (todo,lysing))
     conn.commit()
     return redirect('/')
 
-@route('/breyt/<no>')
+@route('/breyt/<no:int>')
 def nytt_ToDo(no):
     return template('breyta.tpl',no=no)
 
-@route('/breyta/<no>', method='POST')
+@route('/breyta/<no:int>', method='POST')
 def edit_item(no):
     edit = request.forms.get('todo')
-    cur.execute("UPDATE todo SET todo = %s WHERE todo = %s", (edit, no))
+    cur.execute("UPDATE todo SET todo = %s, status = '1' WHERE id = %s", (edit, no))
     conn.commit()
     return redirect('/')
 
-@route('/buid/<no>')
+@route('/buid/<no:int>')
 def buid(no):
-    cur.execute("UPDATE todo SET status = %s WHERE todo = %s", (0,no))
+    cur.execute("UPDATE todo SET status = %s WHERE id = %s", (0,no))
     conn.commit()
     return redirect('/')
 
-@route('/eyda/<no>')
+@route('/eyda/<no:int>')
 def eyda(no):
-    cur.execute("DELETE FROM todo WHERE todo = %s", (no))
+    cur.execute("DELETE FROM todo WHERE id = %s", (no))
     conn.commit()
     return redirect('/')
 
