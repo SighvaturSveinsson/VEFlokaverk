@@ -2,6 +2,7 @@
 
 from bottle import route, run, debug, template, request, static_file, error, redirect
 import pymysql
+import os
 
 conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='1809003730', passwd='mypassword',db='1809003730_veflokaverkefni')
 cur = conn.cursor()
@@ -53,4 +54,7 @@ def eyda(no):
     conn.commit()
     return redirect('/')
 
-run(debug=True)
+if os.environ.get('Is_Heroku'):
+    run(host="0.0.0.0", port=os.environ.get('PORT'))
+else:
+    run(debug=True)
