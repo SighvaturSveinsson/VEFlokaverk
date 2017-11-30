@@ -1,1 +1,1 @@
-web: python verkefni8.py
+web: python lokaverkefni.py
