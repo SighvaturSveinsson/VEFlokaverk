@@ -7,8 +7,6 @@ import os
 conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='1809003730', passwd='mypassword',db='1809003730_veflokaverkefni')
 cur = conn.cursor()
 
-flokka = ""
-
 @route('/<skraarnafn>')
 def static_skrar(skraarnafn):
     return static_file(skraarnafn, root='./')
@@ -19,7 +17,7 @@ def villa(error):
 
 @route('/')
 def root():
-    return template('template.tpl',flokka=flokka)
+    return template('template.tpl')
 
 @route('/nytt')
 def nytt_ToDo():
@@ -60,20 +58,6 @@ def eyda(no):
 def eyda(no):
     cur.execute("UPDATE todo SET status = %s WHERE id = %s", (1,no))
     conn.commit()
-    return redirect('/')
-
-@route('/opid')
-def nytt_ToDo():
-    return template('opin.tpl')
-
-@route('/lokad')
-def nytt_ToDo():
-    flokka = "lokad"
-    return redirect('/')
-
-@route('/allt')
-def nytt_ToDo():
-    flokka = "allt"
     return redirect('/')
 
 if os.environ.get('Is_Heroku'):
