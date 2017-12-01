@@ -1,2 +1,2 @@
 # VEFlokaverk
-### Ég er 1 að vinna ToDo verkefni
+### Ég er einn að vinna ToDo verkefni
