@@ -1,4 +1,4 @@
-﻿<link rel="stylesheet" type="text/css" href="styles.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <meta charset="utf-8">
 % import pymysql
 % conn = pymysql.connect(host='tsuts.tskoli.is', port=3306, user='1809003730', passwd='mypassword',db='1809003730_veflokaverkefni')
@@ -7,8 +7,6 @@
 <h1>To Do listi</h1>
 <div>
 <a href='/nytt' class="button">Bæta við nýju ToDo</a>
-<a href='/opid' class="button">Sýna bara opin ToDo</a>
-<a href='/lokad' class="button">Sýna bara lokuð ToDo</a>
 </div>
 <table id="customers">
   	<thead>

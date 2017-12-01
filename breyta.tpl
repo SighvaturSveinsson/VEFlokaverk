@@ -9,9 +9,7 @@
 % for i in cur:
 %	id = i[0]
 %	todo1  = i[1]
-%	print(todo1)
 % 	lysing = i[3]
-%	print(lysing)
 % 	if id == no:
 		<label>
 			<p>Breyta ToDo<br>
